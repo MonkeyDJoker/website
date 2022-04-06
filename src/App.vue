@@ -1,26 +1,47 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <p>hello this this vue</p>
+  <button @click="count++">count is {{count}} </button>
+
+  <pre><button @click="lang"> 浪起来 </button></pre>
+  <button @click="stop"> 停止 </button>
+
+  <p> {{msg}} </p>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  el: '#app',
+
+  data(){
+    return{
+      msg: '猥琐发育， 别浪！',
+      count: 999,
+      internalID: null
+        }
+  },
+
+  methods:{
+    lang(){
+      if(this.internalID != null)return;
+      this.internalID = setInterval( ()=>{
+      console.log(this.msg)
+      var start = this.msg.substring(0,1)
+      var end = this.msg.substring(1)
+      this.msg = end + start
+      },
+      400)
+    },
+    stop(){
+      clearInterval(this.internalID)
+      this.internalID = null
+    }
+
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
