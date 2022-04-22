@@ -101,10 +101,31 @@ export default {
       clearInterval(this.internalID)
       this.internalID = null
     },
+
+    //删除数据方法一 根据id找到索引后 运用some()的for循环 删除数据
     del(id){
       console.log(id)
+      this.list.some((item,i)=>{
+        if(item.id == id){
+          this.list.splice(i,1)
+          return true;
+        }
+      }
+      )
     },
 
+    //删除数据方法二 用list里的findindex方法 直接找到相应的item
+    del_second(id){
+      var index = this.list.findIndex(item =>{
+        if(item.id == id){
+          return true;
+        }
+      })
+
+      console.log(index)
+      this.list.splice(index,1)
+    },
+    //添加数据，每一次添加 要把ID和name清零
     add(){
       var car = { id: this.id, name: this.name,date: new Date()}
       this.list.push(car)
