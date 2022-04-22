@@ -27,6 +27,11 @@
     </label>
 
     <input type="button" value="ADD" class="btn btn-primary" @click="add()">
+
+     <label>
+      keywords:
+      <input type="text" class="form-control" v-model="keywords">
+    </label>
   </div>
 </div>
 
@@ -43,7 +48,13 @@
 
 </thead>
 <tbody>
-<tr v-for="item in list" :key = "item.id">
+
+<!--
+  之前v-for里的数据 从list里直接渲染过来，
+  现在要定义一个search的方法， 把关键词传参的形式传进search的方法中 然后显示出来
+  -->
+
+<tr v-for="item in search(keywords)" :key = "item.id">
 
   <td>{{item.id}} </td>
 
@@ -77,6 +88,7 @@ export default {
       internalID: null,
       id:'',
       name:'',
+      keywords:'',
 
       list:[
         {id:1,name: 'james',date: new Date()},
@@ -130,6 +142,17 @@ export default {
       var car = { id: this.id, name: this.name,date: new Date()}
       this.list.push(car)
       this.id = this.name = ''
+    },
+    search(keywords){
+      var newlist = []
+      // forEach 用来循环一个list里的每一项
+      this.list.forEach(item => {
+        //indexOf 用来搜索一个string包含另一个string的一种方法
+        if(item.name.indexOf(keywords) != -1){
+          newlist.push(item)
+        }
+      })
+      return newlist
     }
 
   }
