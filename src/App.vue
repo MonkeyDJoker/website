@@ -54,7 +54,7 @@
   现在要定义一个search的方法， 把关键词传参的形式传进search的方法中 然后显示出来
   -->
 
-<tr v-for="item in search(keywords)" :key = "item.id">
+<tr v-for="item in search_second(keywords)" :key = "item.id">
 
   <td>{{item.id}} </td>
 
@@ -147,9 +147,20 @@ export default {
       var newlist = []
       // forEach 用来循环一个list里的每一项
       this.list.forEach(item => {
-        //indexOf 用来搜索一个string包含另一个string的一种方法
+        //indexOf 用来搜索一个string包含另一个string的一种方法 != 意思是不等于 不等于负一 说明包含 就会被搜索出来
         if(item.name.indexOf(keywords) != -1){
+          //push 是把数据放到数组中
           newlist.push(item)
+        }
+      })
+      return newlist
+    },
+    // forEach(没有办法终止)，some(可以使用return TRUE 终止)，filter(过滤)， findIndex(根据index来查询)
+    search_second(keywords){
+      var newlist = this.list.filter(item =>{
+        //另一种方法 string.prototype.includes('要包含的字符')，当然jQuery里也有一个contains的方法。
+        if(item.name.includes(keywords)){
+          return item
         }
       })
       return newlist
